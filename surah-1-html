@@ -1,10 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Surah 1 | Al-Fātiḥah | The English Qur’an</title>
-  <meta name="description" content="Surah 1, Al-Fātiḥah, from The English Qur’an translated by Dr A K Khan." />
+  <meta
+    name="description"
+    content="Surah 1, Al-Fātiḥah, from The English Qur’an translated by Dr A K Khan."
+  />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri+Quran&display=swap');
 
@@ -29,7 +33,7 @@
     }
 
     html {
-      scroll-behaviour: smooth;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -236,8 +240,8 @@
       direction: rtl;
       text-align: right;
       font-family: "Amiri Quran", serif;
-      font-size: 1.4rem;
-      line-height: 1.7;
+      font-size: 1.2rem;
+      line-height: 1.8;
     }
 
     .section {
@@ -305,10 +309,11 @@
 
     .arabic-ayah {
       font-family: "Amiri Quran", "Amiri", serif;
-      font-size: clamp(1.9rem, 4vw, 2.6rem);
-      line-height: 2;
-      color: #0f1720;
-      word-spacing: 0.08em;
+      font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+      line-height: 2.15;
+      color: #111827;
+      word-spacing: 0.04em;
+      letter-spacing: 0;
     }
 
     .english {
@@ -432,6 +437,11 @@
       .overview li {
         font-size: 1rem;
       }
+
+      .arabic-ayah {
+        font-size: 1.38rem;
+        line-height: 2.05;
+      }
     }
   </style>
 </head>
@@ -448,7 +458,7 @@
 
       <nav class="nav">
         <a href="index.html">All Surahs</a>
-        <a class="cta" href="#content">Surah 1</a>
+        <a class="cta" href="#content">Surah 1 · Al-Fātiḥah</a>
       </nav>
     </div>
   </header>
@@ -457,7 +467,7 @@
     <section class="hero">
       <div class="container">
         <div class="hero-card">
-          <div class="crumb">Surah 1</div>
+          <div class="crumb">Surah 1 · Al-Fātiḥah</div>
 
           <div class="hero-grid">
             <div class="hero-copy">
@@ -490,8 +500,8 @@
     <section class="section" id="content">
       <div class="container">
         <div class="controls">
-          <button class="tab-button active" type="button" data-tab="read">Read</button>
-          <button class="tab-button" type="button" data-tab="overview">Overview</button>
+          <button class="tab-button active" type="button" onclick="showTab('read', this)">Read</button>
+          <button class="tab-button" type="button" onclick="showTab('overview', this)">Overview</button>
         </div>
 
         <div class="content-card">
@@ -499,7 +509,7 @@
 
             <article class="verse" id="ayah-1">
               <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝١</div>
+                <div class="arabic-ayah" lang="ar">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ﴿١﴾</div>
               </div>
               <div class="english">
                 <div class="english-number">1.</div>
@@ -509,7 +519,7 @@
 
             <article class="verse" id="ayah-2">
               <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ۝٢</div>
+                <div class="arabic-ayah" lang="ar">ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ﴿٢﴾</div>
               </div>
               <div class="english">
                 <div class="english-number">2.</div>
@@ -519,7 +529,7 @@
 
             <article class="verse" id="ayah-3">
               <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ۝٣</div>
+                <div class="arabic-ayah" lang="ar">ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ﴿٣﴾</div>
               </div>
               <div class="english">
                 <div class="english-number">3.</div>
@@ -529,7 +539,7 @@
 
             <article class="verse" id="ayah-4">
               <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">مَٰلِكِ يَوْمِ ٱلدِّينِ ۝٤</div>
+                <div class="arabic-ayah" lang="ar">مَٰلِكِ يَوْمِ ٱلدِّينِ ﴿٤﴾</div>
               </div>
               <div class="english">
                 <div class="english-number">4.</div>
@@ -539,7 +549,7 @@
 
             <article class="verse" id="ayah-5">
               <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝٥</div>
+                <div class="arabic-ayah" lang="ar">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾</div>
               </div>
               <div class="english">
                 <div class="english-number">5.</div>
@@ -549,7 +559,7 @@
 
             <article class="verse" id="ayah-6">
               <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ۝٦</div>
+                <div class="arabic-ayah" lang="ar">ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ﴿٦﴾</div>
               </div>
               <div class="english">
                 <div class="english-number">6.</div>
@@ -559,7 +569,7 @@
 
             <article class="verse" id="ayah-7">
               <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ۝٧</div>
+                <div class="arabic-ayah" lang="ar">صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ﴿٧﴾</div>
               </div>
               <div class="english">
                 <div class="english-number">7.</div>
@@ -573,7 +583,9 @@
             <div class="overview">
               <h3>Overview</h3>
               <p>Surah Al-Fātiḥah opens the Qur’an and lays down its foundation in a clear and direct way. Though short, it brings together the core of the message, belief, worship, accountability, and guidance. It begins with praise of Allah, recognising Him as the Lord of all creation, full of mercy and complete authority. This sets the tone of faith with gratitude, humility, and awareness of who Allah is.</p>
+
               <p>The Surah then turns to the reality of the Day of Judgement, reminding us that life has purpose and that every action returns to Allah. Mercy and accountability stand together, shaping a balanced and conscious way of living. At its centre is a clear declaration, we worship Allah alone and rely on Him alone, followed by a sincere request for guidance to the straight path.</p>
+
               <p>It ends by drawing a clear line between the path of guidance and the paths that lead away from it. In just seven verses, this Surah acts as the opening, the summary, and the compass of the entire Qur’an.</p>
 
               <h3>Key Themes</h3>
@@ -604,20 +616,18 @@
   </footer>
 
   <script>
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-
-    tabButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const target = button.dataset.tab;
-
-        tabButtons.forEach((btn) => btn.classList.remove('active'));
-        tabPanels.forEach((panel) => panel.classList.remove('active'));
-
-        button.classList.add('active');
-        document.getElementById(target).classList.add('active');
+    function showTab(tabId, button) {
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.remove('active');
       });
-    });
+
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      document.getElementById(tabId).classList.add('active');
+      button.classList.add('active');
+    }
   </script>
 </body>
 </html>
