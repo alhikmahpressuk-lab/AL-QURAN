@@ -193,20 +193,18 @@
       letter-spacing: -0.045em;
     }
 
-    .hero-copy p {
+    .hero-copy .meaning {
       margin: 14px 0 0;
       color: #32404b;
       font-size: 1rem;
+    }
+
+    .hero-copy .summary {
+      margin: 18px 0 0;
+      color: #32404b;
+      font-size: 1rem;
       max-width: 58ch;
-    }
-
-    .hero-copy .translator {
-      color: var(--muted);
-      margin-top: 18px;
-    }
-
-    .hero-copy .translator strong {
-      color: var(--text);
+      line-height: 1.8;
     }
 
     .hero-meta {
@@ -471,8 +469,10 @@
           <div class="hero-grid">
             <div class="hero-copy">
               <h2>Al-Fātiḥah</h2>
-              <p>The Opening</p>
-              <p class="translator">From <strong>The English Qur’an</strong>, translated by <strong>Dr A K Khan</strong></p>
+              <p class="meaning">The Opening</p>
+              <p class="summary">
+                A short and powerful opening that centres praise, worship, mercy, accountability, and the constant need for guidance from Allah.
+              </p>
             </div>
 
             <div class="hero-meta">
@@ -605,15 +605,15 @@
     </section>
   </main>
 
- <footer class="footer">
-  <div class="footer-inner">
-    <div>Surah 1 | Al-Fātiḥah</div>
-    <div class="footer-links">
-      <a href="index.html">Homepage</a>
-      <a href="surah-2.html">Next Surah · Al-Baqarah</a>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>Surah 1 | Al-Fātiḥah</div>
+      <div class="footer-links">
+        <a href="index.html">Homepage</a>
+        <a href="surah-2.html">Next Surah · Al-Baqarah</a>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
   <script>
     function showTab(tabId, button) {
@@ -631,4 +631,3 @@
   </script>
 </body>
 </html>
-
