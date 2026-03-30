@@ -4,17 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Surah 1 | Al-Fātiḥah | The English Qur’an</title>
-  <meta
-    name="description"
-    content="Surah 1, Al-Fātiḥah, from The English Qur’an translated by Dr A K Khan."
-  />
+  <meta name="description" content="Surah 1, Al-Fātiḥah, from The English Qur’an." />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri+Quran&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Amiri+Quran&display=swap');
 
     :root {
       --bg: #f7f8fa;
       --surface: #ffffff;
       --surface-soft: #f2f5f6;
+      --surface-deep: #edf4f2;
       --text: #182128;
       --muted: #66727d;
       --line: #e3e8ec;
@@ -25,6 +23,20 @@
       --radius: 22px;
       --radius-sm: 16px;
       --max: 980px;
+    }
+
+    html[data-theme="dark"] {
+      --bg: #0f1418;
+      --surface: #182128;
+      --surface-soft: #1f2a33;
+      --surface-deep: #22303a;
+      --text: #f3f7fa;
+      --muted: #a8b5bf;
+      --line: #2d3a44;
+      --accent: #38a189;
+      --accent-deep: #2c7a67;
+      --accent-soft: rgba(56, 161, 137, 0.16);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
     }
 
     * {
@@ -41,6 +53,7 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
+      transition: background 0.2s ease, color 0.2s ease;
     }
 
     a {
@@ -48,13 +61,18 @@
       text-decoration: none;
     }
 
+    button,
+    select {
+      font: inherit;
+    }
+
     .topbar {
       position: sticky;
       top: 0;
       z-index: 100;
       backdrop-filter: blur(12px);
-      background: rgba(247, 248, 250, 0.92);
-      border-bottom: 1px solid rgba(227, 232, 236, 0.95);
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 95%, transparent);
     }
 
     .topbar-inner,
@@ -113,28 +131,36 @@
       flex-wrap: wrap;
     }
 
-    .nav a {
+    .nav a,
+    .theme-toggle {
       padding: 10px 14px;
       border-radius: 999px;
       font-size: 0.94rem;
       color: var(--muted);
       transition: 0.2s ease;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
     }
 
-    .nav a:hover {
+    .nav a:hover,
+    .theme-toggle:hover {
       background: var(--surface);
       color: var(--text);
+      border-color: var(--line);
     }
 
     .nav .cta {
       background: var(--accent);
       color: #fff;
       font-weight: 600;
+      border-color: var(--accent);
     }
 
     .nav .cta:hover {
       background: var(--accent-deep);
       color: #fff;
+      border-color: var(--accent-deep);
     }
 
     .hero {
@@ -147,6 +173,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
     .hero-card {
@@ -164,6 +191,10 @@
       height: 250px;
       background: radial-gradient(circle, rgba(30,107,92,0.13) 0%, rgba(30,107,92,0) 72%);
       pointer-events: none;
+    }
+
+    html[data-theme="dark"] .hero-card::after {
+      background: radial-gradient(circle, rgba(56,161,137,0.18) 0%, rgba(56,161,137,0) 72%);
     }
 
     .crumb {
@@ -195,13 +226,13 @@
 
     .hero-copy .meaning {
       margin: 14px 0 0;
-      color: #32404b;
+      color: color-mix(in srgb, var(--text) 78%, white);
       font-size: 1rem;
     }
 
     .hero-copy .summary {
       margin: 18px 0 0;
-      color: #32404b;
+      color: color-mix(in srgb, var(--text) 80%, white);
       font-size: 1rem;
       max-width: 58ch;
       line-height: 1.8;
@@ -260,14 +291,13 @@
       min-height: 46px;
       padding: 0 18px;
       border-radius: 999px;
-      font: inherit;
       font-weight: 600;
       cursor: pointer;
       transition: 0.2s ease;
     }
 
     .tab-button:hover {
-      border-color: rgba(30, 107, 92, 0.35);
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
       background: var(--surface-soft);
     }
 
@@ -289,9 +319,107 @@
       display: block;
     }
 
+    .subpanel {
+      display: none;
+      margin-bottom: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface-soft);
+    }
+
+    .subpanel.active {
+      display: block;
+    }
+
+    .subpanel h3 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subpanel p {
+      margin: 0 0 14px;
+      color: color-mix(in srgb, var(--text) 80%, white);
+    }
+
+    .mode-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mode-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .mode-button:hover {
+      background: var(--surface-deep);
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+    }
+
+    .mode-button.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .verse-selector-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .verse-selector-row label {
+      font-weight: 600;
+    }
+
+    .verse-selector-row select {
+      min-width: 180px;
+      min-height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      padding: 0 14px;
+      outline: none;
+    }
+
+    .jump-button {
+      appearance: none;
+      border: none;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .jump-button:hover {
+      background: var(--accent-deep);
+    }
+
     .verse {
       padding: 24px 16px;
       border-radius: 18px;
+      scroll-margin-top: 110px;
+    }
+
+    .verse:target {
+      background: var(--surface-deep);
     }
 
     .verse + .verse {
@@ -306,11 +434,27 @@
 
     .arabic-ayah {
       font-family: "Amiri Quran", "Amiri", serif;
-      font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+      font-size: clamp(1.55rem, 2.15vw, 1.95rem);
       line-height: 2.15;
       color: #111827;
       word-spacing: 0.04em;
       letter-spacing: 0;
+    }
+
+    html[data-theme="dark"] .arabic-ayah {
+      color: #f8fbfd;
+    }
+
+    .transliteration-wrap {
+      margin: 0 0 16px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: color-mix(in srgb, var(--text) 78%, white);
+      font-size: 0.98rem;
+      line-height: 1.8;
+      font-style: italic;
     }
 
     .english {
@@ -335,7 +479,7 @@
 
     .english-text {
       font-size: 1rem;
-      color: #23303a;
+      color: color-mix(in srgb, var(--text) 88%, white);
     }
 
     .overview {
@@ -351,7 +495,7 @@
     .overview p {
       margin: 0 0 16px;
       font-size: 1.05rem;
-      color: #24313a;
+      color: color-mix(in srgb, var(--text) 88%, white);
       line-height: 1.8;
     }
 
@@ -363,7 +507,27 @@
     .overview li {
       margin-bottom: 10px;
       font-size: 1.03rem;
-      color: #24313a;
+      color: color-mix(in srgb, var(--text) 88%, white);
+    }
+
+    .loading-state,
+    .error-state,
+    .note-state {
+      padding: 22px 16px;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: color-mix(in srgb, var(--text) 82%, white);
+      font-size: 1rem;
+    }
+
+    .error-state {
+      display: none;
+    }
+
+    .note-state {
+      display: none;
+      margin-bottom: 16px;
     }
 
     .footer {
@@ -391,6 +555,23 @@
       border-radius: 999px;
       background: var(--surface);
       border: 1px solid var(--line);
+      transition: 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      background: var(--surface-soft);
+    }
+
+    .hidden-arabic .arabic-wrap {
+      display: none;
+    }
+
+    .hidden-english .english {
+      display: none;
+    }
+
+    .hidden-transliteration .transliteration-wrap {
+      display: none;
     }
 
     @media (max-width: 860px) {
@@ -436,8 +617,17 @@
       }
 
       .arabic-ayah {
-        font-size: 1.38rem;
+        font-size: 1.42rem;
         line-height: 2.05;
+      }
+
+      .mode-options {
+        flex-direction: column;
+      }
+
+      .mode-button,
+      .theme-toggle {
+        width: 100%;
       }
     }
   </style>
@@ -449,13 +639,14 @@
         <div class="brand-mark">١</div>
         <div class="brand-text">
           <h1>The English Qur’an</h1>
-          <p>Translated by Dr A K Khan</p>
+          <p>Surah 1 · Al-Fātiḥah</p>
         </div>
       </div>
 
       <nav class="nav">
         <a href="index.html">All Surahs</a>
-        <a class="cta" href="#content">Surah 1 · Al-Fātiḥah</a>
+        <a class="cta" href="#content">Read Surah 1</a>
+        <button class="theme-toggle" type="button" id="themeToggle" aria-label="Toggle theme">Dark</button>
       </nav>
     </div>
   </header>
@@ -471,7 +662,7 @@
               <h2>Al-Fātiḥah</h2>
               <p class="meaning">The Opening</p>
               <p class="summary">
-                A short and powerful opening that centres praise, worship, mercy, accountability, and the constant need for guidance from Allah.
+                The opening of the Qur’an, gathering praise, worship, accountability, and the plea for true guidance into one complete and essential prayer.
               </p>
             </div>
 
@@ -499,88 +690,45 @@
     <section class="section" id="content">
       <div class="container">
         <div class="controls">
-          <button class="tab-button active" type="button" onclick="showTab('read', this)">Read</button>
-          <button class="tab-button" type="button" onclick="showTab('overview', this)">Overview</button>
+          <button class="tab-button active" type="button" data-tab="read">Read</button>
+          <button class="tab-button" type="button" data-tab="overview">Overview</button>
+          <button class="tab-button" type="button" data-tab="mode">Mode</button>
+          <button class="tab-button" type="button" data-tab="verse">Verse</button>
         </div>
 
         <div class="content-card">
+          <div class="subpanel" id="modePanel">
+            <h3>Reading Mode</h3>
+            <p>Select how the verses are displayed.</p>
+            <div class="mode-options">
+              <button class="mode-button active" type="button" data-mode="bilingual">Arabic + English</button>
+              <button class="mode-button" type="button" data-mode="transliteration">Transliteration</button>
+              <button class="mode-button" type="button" data-mode="arabic-only">Arabic Only</button>
+              <button class="mode-button" type="button" data-mode="english-only">English Only</button>
+            </div>
+          </div>
+
+          <div class="subpanel" id="versePanel">
+            <h3>Jump to Verse</h3>
+            <p>Select any ayah in Surah Al-Fātiḥah and jump straight to it.</p>
+            <div class="verse-selector-row">
+              <label for="verseSelect">Verse</label>
+              <select id="verseSelect" aria-label="Select verse number"></select>
+              <button class="jump-button" type="button" id="jumpButton">Go to verse</button>
+            </div>
+          </div>
+
           <div class="tab-panel active" id="read">
-
-            <article class="verse" id="ayah-1">
-              <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ﴿١﴾</div>
-              </div>
-              <div class="english">
-                <div class="english-number">1.</div>
-                <div class="english-text">In the name of Allah, the Most-Merciful, the Ever-Merciful.</div>
-              </div>
-            </article>
-
-            <article class="verse" id="ayah-2">
-              <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ﴿٢﴾</div>
-              </div>
-              <div class="english">
-                <div class="english-number">2.</div>
-                <div class="english-text">All praise belongs to Allah, Lord of all worlds.</div>
-              </div>
-            </article>
-
-            <article class="verse" id="ayah-3">
-              <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ﴿٣﴾</div>
-              </div>
-              <div class="english">
-                <div class="english-number">3.</div>
-                <div class="english-text">The Most-Merciful, the Ever-Merciful.</div>
-              </div>
-            </article>
-
-            <article class="verse" id="ayah-4">
-              <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">مَٰلِكِ يَوْمِ ٱلدِّينِ ﴿٤﴾</div>
-              </div>
-              <div class="english">
-                <div class="english-number">4.</div>
-                <div class="english-text">Master of the Day of Judgement.</div>
-              </div>
-            </article>
-
-            <article class="verse" id="ayah-5">
-              <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾</div>
-              </div>
-              <div class="english">
-                <div class="english-number">5.</div>
-                <div class="english-text">You alone we worship, and You alone we ask for help.</div>
-              </div>
-            </article>
-
-            <article class="verse" id="ayah-6">
-              <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ﴿٦﴾</div>
-              </div>
-              <div class="english">
-                <div class="english-number">6.</div>
-                <div class="english-text">Guide us to the straight path,</div>
-              </div>
-            </article>
-
-            <article class="verse" id="ayah-7">
-              <div class="arabic-wrap">
-                <div class="arabic-ayah" lang="ar">صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ﴿٧﴾</div>
-              </div>
-              <div class="english">
-                <div class="english-number">7.</div>
-                <div class="english-text">the path of those upon whom You have bestowed favour, not of those who have incurred anger, nor of those who have gone astray.</div>
-              </div>
-            </article>
-
+            <div class="loading-state" id="loadingState">Loading Surah Al-Fātiḥah...</div>
+            <div class="error-state" id="errorState">The surah could not be loaded. Please refresh the page and try again.</div>
+            <div class="note-state" id="noteState">Transliteration could not be loaded, so the page has switched back to Arabic + English.</div>
+            <div id="versesContainer"></div>
           </div>
 
           <div class="tab-panel" id="overview">
             <div class="overview">
               <h3>Overview</h3>
+
               <p>Surah Al-Fātiḥah opens the Qur’an and lays down its foundation in a clear and direct way. Though short, it brings together the core of the message, belief, worship, accountability, and guidance. It begins with praise of Allah, recognising Him as the Lord of all creation, full of mercy and complete authority. This sets the tone of faith with gratitude, humility, and awareness of who Allah is.</p>
 
               <p>The Surah then turns to the reality of the Day of Judgement, reminding us that life has purpose and that every action returns to Allah. Mercy and accountability stand together, shaping a balanced and conscious way of living. At its centre is a clear declaration, we worship Allah alone and rely on Him alone, followed by a sincere request for guidance to the straight path.</p>
@@ -600,6 +748,9 @@
               <p>True guidance begins with recognising Allah, turning to Him alone, and asking to be kept firmly on the straight path.</p>
             </div>
           </div>
+
+          <div class="tab-panel" id="mode"></div>
+          <div class="tab-panel" id="verse"></div>
         </div>
       </div>
     </section>
@@ -616,18 +767,233 @@
   </footer>
 
   <script>
-    function showTab(tabId, button) {
-      document.querySelectorAll('.tab-panel').forEach(panel => {
-        panel.classList.remove('active');
-      });
+    const englishVerses = [
+      "In the name of Allah, the Most-Merciful, the Ever-Merciful.",
+      "All praise belongs to Allah, Lord of all creation,",
+      "the Most-Merciful, the Ever-Merciful,",
+      "Master of the Day of Judgement.",
+      "You alone we worship, and You alone we ask for help.",
+      "Guide us to the straight path,",
+      "the path of those You have favoured, not of those who have earned anger, nor of those who went astray."
+    ];
 
-      document.querySelectorAll('.tab-button').forEach(btn => {
-        btn.classList.remove('active');
-      });
+    const versesContainer = document.getElementById("versesContainer");
+    const loadingState = document.getElementById("loadingState");
+    const errorState = document.getElementById("errorState");
+    const noteState = document.getElementById("noteState");
 
-      document.getElementById(tabId).classList.add('active');
-      button.classList.add('active');
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabPanels = document.querySelectorAll(".tab-panel");
+
+    const modePanel = document.getElementById("modePanel");
+    const versePanel = document.getElementById("versePanel");
+    const modeButtons = document.querySelectorAll(".mode-button");
+    const verseSelect = document.getElementById("verseSelect");
+    const jumpButton = document.getElementById("jumpButton");
+    const themeToggle = document.getElementById("themeToggle");
+
+    let currentMode = "bilingual";
+    let transliterationAvailable = false;
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
+
+    function toArabicDigits(num) {
+      return String(num).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
+    }
+
+    function buildVerseSelector() {
+      let options = "";
+      for (let i = 1; i <= 7; i++) {
+        options += `<option value="${i}">Verse ${i}</option>`;
+      }
+      verseSelect.innerHTML = options;
+    }
+
+    function setActiveTab(target) {
+      tabButtons.forEach((btn) => btn.classList.toggle("active", btn.dataset.tab === target));
+      tabPanels.forEach((panel) => panel.classList.toggle("active", panel.id === target));
+      modePanel.classList.toggle("active", target === "mode");
+      versePanel.classList.toggle("active", target === "verse");
+    }
+
+    function applyMode(mode) {
+      currentMode = mode;
+      modeButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.mode === mode);
+      });
+
+      versesContainer.classList.remove("hidden-arabic", "hidden-english", "hidden-transliteration");
+      noteState.style.display = "none";
+
+      if (mode === "bilingual") {
+        versesContainer.classList.add("hidden-transliteration");
+        return "bilingual";
+      }
+
+      if (mode === "transliteration") {
+        if (!transliterationAvailable) {
+          noteState.style.display = "block";
+          versesContainer.classList.add("hidden-transliteration");
+          modeButtons.forEach((button) => {
+            button.classList.toggle("active", button.dataset.mode === "bilingual");
+          });
+          currentMode = "bilingual";
+          return "bilingual";
+        }
+        return "transliteration";
+      }
+
+      if (mode === "arabic-only") {
+        versesContainer.classList.add("hidden-english", "hidden-transliteration");
+        return "arabic-only";
+      }
+
+      if (mode === "english-only") {
+        versesContainer.classList.add("hidden-arabic", "hidden-transliteration");
+        return "english-only";
+      }
+
+      versesContainer.classList.add("hidden-transliteration");
+      return "bilingual";
+    }
+
+    function jumpToVerse(verseNumber) {
+      const target = document.getElementById(`ayah-${verseNumber}`);
+      if (!target) return;
+      setActiveTab("read");
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.location.hash = `ayah-${verseNumber}`;
+    }
+
+    function applyTheme(theme) {
+      if (theme === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        themeToggle.textContent = "Light";
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+        themeToggle.textContent = "Dark";
+      }
+      localStorage.setItem("site-theme", theme);
+    }
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveTab(button.dataset.tab);
+      });
+    });
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        applyMode(button.dataset.mode);
+        setActiveTab("read");
+      });
+    });
+
+    jumpButton.addEventListener("click", () => {
+      jumpToVerse(verseSelect.value);
+    });
+
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      applyTheme(isDark ? "light" : "dark");
+    });
+
+    async function fetchArabicAndTransliteration() {
+      const url = "https://api.quran.com/api/v4/verses/by_chapter/1?words=true&word_fields=text_uthmani,transliteration&fields=text_uthmani&per_page=20&page=1";
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Arabic request failed");
+      }
+
+      const payload = await response.json();
+      const verses = Array.isArray(payload.verses)
+        ? payload.verses
+        : payload.data && Array.isArray(payload.data.verses)
+          ? payload.data.verses
+          : [];
+
+      return verses
+        .filter((verse) => verse.verse_number && verse.text_uthmani)
+        .sort((a, b) => a.verse_number - b.verse_number)
+        .map((verse) => {
+          const transliteration = Array.isArray(verse.words)
+            ? verse.words
+                .map((word) => {
+                  if (word.transliteration && word.transliteration.text) return word.transliteration.text;
+                  return "";
+                })
+                .filter(Boolean)
+                .join(" ")
+            : "";
+
+          return {
+            number: verse.verse_number,
+            arabic: verse.text_uthmani,
+            transliteration
+          };
+        });
+    }
+
+    function renderVerses(verseData) {
+      const html = verseData.map((verse, index) => {
+        const english = englishVerses[index] || "";
+        const transliterationBlock = verse.transliteration
+          ? `<div class="transliteration-wrap">${escapeHtml(verse.transliteration)}</div>`
+          : `<div class="transliteration-wrap">Transliteration not available for this verse.</div>`;
+
+        return `
+          <article class="verse" id="ayah-${verse.number}">
+            <div class="arabic-wrap">
+              <div class="arabic-ayah" lang="ar">${escapeHtml(verse.arabic)} ﴿${toArabicDigits(verse.number)}﴾</div>
+            </div>
+            ${transliterationBlock}
+            <div class="english">
+              <div class="english-number">${verse.number}.</div>
+              <div class="english-text">${escapeHtml(english)}</div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      versesContainer.innerHTML = html;
+    }
+
+    async function loadSurah() {
+      try {
+        const verseData = await fetchArabicAndTransliteration();
+
+        if (verseData.length !== englishVerses.length) {
+          throw new Error(`Verse count mismatch: Arabic ${verseData.length}, English ${englishVerses.length}`);
+        }
+
+        transliterationAvailable = verseData.some((v) => v.transliteration && v.transliteration.trim());
+        renderVerses(verseData);
+        buildVerseSelector();
+        applyMode("bilingual");
+
+        loadingState.style.display = "none";
+        errorState.style.display = "none";
+      } catch (error) {
+        console.error(error);
+        loadingState.style.display = "none";
+        errorState.style.display = "block";
+      }
+    }
+
+    const savedTheme = localStorage.getItem("site-theme");
+    applyTheme(savedTheme === "dark" ? "dark" : "light");
+
+    buildVerseSelector();
+    setActiveTab("read");
+    loadSurah();
   </script>
 </body>
 </html>
