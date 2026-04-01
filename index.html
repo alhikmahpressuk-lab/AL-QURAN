@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google" content="notranslate" />
-  <meta name="translate" content="no" />
   <title>The English Qur’an</title>
   <meta
     name="description"
@@ -206,8 +204,7 @@
     .juz-section,
     .book-section,
     .about-section,
-    .contact-section,
-    .legal-panel {
+    .contact-section {
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -364,8 +361,7 @@
       font-size: 0.97rem;
     }
 
-    .section,
-    .legal-section {
+    .section {
       padding: 18px 0 10px;
     }
 
@@ -377,16 +373,14 @@
       margin-bottom: 18px;
     }
 
-    .section-head h3,
-    .legal-intro h3 {
+    .section-head h3 {
       margin: 0;
       font-size: clamp(1.4rem, 2.5vw, 2rem);
       letter-spacing: -0.03em;
     }
 
-    .section-head p,
-    .legal-intro p {
-      margin: 8px 0 0;
+    .section-head p {
+      margin: 6px 0 0;
       color: var(--muted);
       max-width: 72ch;
     }
@@ -398,8 +392,7 @@
     .search-panel,
     .surah-section,
     .juz-section,
-    .contact-section,
-    .legal-panel {
+    .contact-section {
       padding: 26px;
       margin-bottom: 24px;
     }
@@ -531,6 +524,18 @@
       margin-bottom: 18px;
     }
 
+    .contact-intro h3 {
+      margin: 0;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      letter-spacing: -0.03em;
+    }
+
+    .contact-intro p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
     .contact-check {
       display: flex;
       align-items: flex-start;
@@ -636,8 +641,7 @@
     .surah-main h4,
     .juz-main h4,
     .about-card h4,
-    .book-copy h4,
-    .legal-content h4 {
+    .book-copy h4 {
       margin: 0;
       font-size: 1.08rem;
       letter-spacing: -0.02em;
@@ -728,81 +732,6 @@
       align-items: center;
     }
 
-    .legal-button-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .legal-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: 0 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--surface-soft);
-      color: var(--text);
-      font-size: 0.88rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s ease;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .legal-toggle:hover,
-    .legal-toggle.active {
-      background: var(--accent-soft);
-      color: var(--accent-deep);
-      border-color: rgba(30, 107, 92, 0.3);
-    }
-
-    .legal-content {
-      display: none;
-      padding: 22px;
-      border-radius: 18px;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-    }
-
-    .legal-content.active {
-      display: block;
-    }
-
-    .legal-content h5 {
-      margin: 20px 0 8px;
-      font-size: 0.98rem;
-      color: var(--text);
-    }
-
-    .legal-content p,
-    .legal-content li {
-      color: color-mix(in srgb, var(--text) 92%, white 8%);
-      font-size: 0.94rem;
-    }
-
-    .legal-content p {
-      margin: 0 0 12px;
-    }
-
-    .legal-content ul {
-      margin: 0 0 12px 18px;
-      padding: 0;
-    }
-
-    .legal-content li {
-      margin-bottom: 8px;
-    }
-
-    .legal-meta {
-      color: var(--muted);
-      font-size: 0.86rem;
-      margin: 10px 0 14px;
-    }
-
     .footer {
       border-top: 1px solid var(--line);
       background: var(--surface);
@@ -814,18 +743,15 @@
       width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
     }
 
     .footer-copy {
       display: grid;
       gap: 4px;
-      justify-items: center;
     }
 
     .footer p {
@@ -834,17 +760,10 @@
       font-size: 0.95rem;
     }
 
-    .footer-warning {
-      max-width: 920px;
-      font-size: 0.84rem;
-      line-height: 1.7;
-    }
-
     .footer-links {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
     .footer-links a {
@@ -859,14 +778,44 @@
       justify-content: center;
       min-height: 40px;
       text-align: center;
-      transition: 0.2s ease;
-      white-space: nowrap;
     }
 
-    .footer-links a:hover {
+    .legal-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .legal-links a {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: color-mix(in srgb, var(--muted) 88%, var(--text) 12%);
+      font-size: 0.82rem;
+      line-height: 1;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: 0.2s ease;
+    }
+
+    .legal-links a:hover {
       background: var(--accent-soft);
-      border-color: rgba(30, 107, 92, 0.3);
+      border-color: rgba(30, 107, 92, 0.28);
       color: var(--accent-deep);
+    }
+
+    .footer-nav-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0;
     }
 
     .empty-state {
@@ -909,6 +858,15 @@
         flex-direction: column;
         align-items: flex-start;
       }
+
+      .footer-nav-wrap {
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      .legal-links {
+        justify-content: flex-start;
+      }
     }
 
     @media (max-width: 820px) {
@@ -936,9 +894,7 @@
       .juz-section,
       .book-section,
       .about-section,
-      .contact-section,
-      .legal-panel,
-      .legal-content {
+      .contact-section {
         padding: 22px;
       }
     }
@@ -984,42 +940,10 @@
         align-items: stretch;
       }
 
-      .footer-links {
-        width: 100%;
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .footer-links a {
-        width: 100%;
-      }
-
-      .legal-button-row {
-        gap: 8px;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 2px;
-      }
-
-      .legal-button-row::-webkit-scrollbar {
-        height: 4px;
-      }
-
-      .legal-button-row::-webkit-scrollbar-thumb {
-        background: color-mix(in srgb, var(--line) 85%, var(--muted) 15%);
-        border-radius: 999px;
-      }
-
-      .legal-toggle {
-        flex: 0 0 auto;
-        min-height: 36px;
-        padding: 0 12px;
-        font-size: 0.78rem;
-      }
-
-      .footer-warning {
-        font-size: 0.8rem;
+      .footer-links,
+      .legal-links {
+        flex-direction: row;
+        align-items: center;
       }
     }
   </style>
@@ -1041,7 +965,6 @@
         <a href="#about">About</a>
         <a href="#book">Book</a>
         <a href="#contact">Contact</a>
-        <a href="#legal">Legal</a>
         <a class="cta" href="surah-1.html">Start Reading</a>
         <button class="theme-toggle" type="button" id="themeToggle">Dark</button>
       </nav>
@@ -1324,133 +1247,28 @@
         </div>
       </div>
     </section>
-
-    <section class="legal-section" id="legal">
-      <div class="container">
-        <div class="legal-panel">
-          <div class="legal-intro">
-            <h3>Legal information</h3>
-            <p>Read the key legal terms, privacy position, and permissions guidance for The English Qur’an™ directly on this page.</p>
-          </div>
-
-          <div class="legal-button-row">
-            <button class="legal-toggle active" type="button" data-legal-target="legalTerms">Terms and Conditions</button>
-            <button class="legal-toggle" type="button" data-legal-target="legalPrivacy">Privacy Policy</button>
-            <button class="legal-toggle" type="button" data-legal-target="legalPermissions">Permissions</button>
-          </div>
-
-          <div class="legal-content active" id="legalTerms">
-            <h4>Terms and Conditions</h4>
-            <p class="legal-meta">Effective Date: 2026 | Al-Hikmah Publishing Ltd (UK)</p>
-
-            <h5>1. Introduction</h5>
-            <p>These Terms and Conditions govern the use of The English Qur’an™ website and related materials published by Al-Hikmah Publishing Ltd (UK).</p>
-
-            <h5>2. Ownership</h5>
-            <p>All content, including the translation text, presentation, layout, wording, structure, branding, and related materials, is protected and owned by Al-Hikmah Publishing Ltd (UK), unless stated otherwise.</p>
-
-            <h5>3. Limited Use</h5>
-            <p>You may use the website for personal, private, non-commercial reading only.</p>
-
-            <h5>4. Prohibited Use</h5>
-            <ul>
-              <li>No copying or republication of substantial content</li>
-              <li>No scraping, crawling, or harvesting</li>
-              <li>No AI training, dataset use, or machine learning use</li>
-              <li>No reproduction in books, apps, websites, PDFs, or media without permission</li>
-            </ul>
-
-            <h5>5. External Book Retailers</h5>
-            <p>Links to Amazon, IngramSpark, or other external retailers are provided for convenience. Any purchase made through those platforms is handled by the relevant third party, not by Al-Hikmah Publishing Ltd (UK).</p>
-
-            <h5>6. Liability</h5>
-            <p>To the fullest extent permitted by law, the website is provided as is and as available. Al-Hikmah Publishing Ltd (UK) is not liable for indirect or consequential loss arising from use of the site.</p>
-
-            <h5>7. Governing Law</h5>
-            <p>These Terms and Conditions are governed by the laws of England and Wales.</p>
-
-            <h5>8. Contact</h5>
-            <p>For permissions or legal enquiries, contact Al-Hikmah Publishing Ltd (UK).</p>
-          </div>
-
-          <div class="legal-content" id="legalPrivacy">
-            <h4>Privacy Policy</h4>
-            <p class="legal-meta">Effective Date: 2026 | Al-Hikmah Publishing Ltd (UK)</p>
-
-            <h5>1. Overview</h5>
-            <p>This Privacy Policy explains how information may be collected, used, and protected in connection with The English Qur’an™ website.</p>
-
-            <h5>2. Information We May Collect</h5>
-            <ul>
-              <li>Name and email address submitted through forms</li>
-              <li>Messages sent through the website</li>
-              <li>Technical information such as browser type, device type, and IP-related data</li>
-              <li>Usage information such as pages visited and interactions</li>
-            </ul>
-
-            <h5>3. How We Use Information</h5>
-            <ul>
-              <li>To respond to enquiries</li>
-              <li>To improve the website and user experience</li>
-              <li>To manage subscriptions and updates where chosen</li>
-              <li>To protect the website from abuse or misuse</li>
-            </ul>
-
-            <h5>4. Third-Party Services</h5>
-            <p>The site may use third-party providers such as Formspree, hosting services, analytics providers, and external book retailers. Their separate terms and privacy policies may also apply.</p>
-
-            <h5>5. External Retail Links</h5>
-            <p>If you follow a link to Amazon, IngramSpark, or another retailer, your interaction and any purchase are handled by that third party.</p>
-
-            <h5>6. Data Security</h5>
-            <p>Reasonable steps should be taken to protect information, but no internet-based service can be guaranteed to be completely secure.</p>
-
-            <h5>7. Contact</h5>
-            <p>For privacy-related enquiries, contact Al-Hikmah Publishing Ltd (UK).</p>
-          </div>
-
-          <div class="legal-content" id="legalPermissions">
-            <h4>Permissions</h4>
-            <p class="legal-meta">© 2026 Al-Hikmah Publishing Ltd (UK)</p>
-
-            <h5>1. Copyright</h5>
-            <p>All rights are reserved in The English Qur’an™, including the translation text, wording, structure, presentation, and related website materials.</p>
-
-            <h5>2. Personal Use Only</h5>
-            <p>The website content may be used only for personal, private, non-commercial reading unless written permission is granted.</p>
-
-            <h5>3. Not Permitted Without Permission</h5>
-            <ul>
-              <li>Copying substantial content</li>
-              <li>Republication in books, apps, websites, PDFs, or media</li>
-              <li>Systematic quotation or extraction</li>
-              <li>Scraping or automated harvesting</li>
-              <li>AI training, dataset use, or machine learning use</li>
-            </ul>
-
-            <h5>4. Permission Requests</h5>
-            <p>Any request for broader quotation, educational use, publication, media use, licensing, or reuse should be directed to Al-Hikmah Publishing Ltd (UK).</p>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-copy">
-        <p>© 2026 Al-Hikmah Publishing Ltd (UK). All rights reserved.</p>
+        <p>© 2015–2026 Al-Hikmah Publishing UK </p>
         <p>The English Qur’an™, translated by Dr A K Khan.</p>
-        <p class="footer-warning">No part of this translation may be reproduced, distributed, republished, scraped, or used for AI training without written permission.</p>
       </div>
 
-      <div class="footer-links">
-        <a href="#surahs">Browse Surahs</a>
-        <a href="#juz">Browse Juz</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#legal">Legal</a>
-        <a href="surah-1.html">Read Surah 1</a>
+      <div class="footer-nav-wrap">
+        <div class="footer-links">
+          <a href="#surahs">Browse Surahs</a>
+          <a href="#juz">Browse Juz</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="surah-1.html">Read Surah 1</a>
+        </div>
+        <div class="legal-links">
+          <a href="terms-and-conditions.html">Terms</a>
+          <a href="privacy-policy.html">Privacy</a>
+          <a href="sitemap.html">Sitemap</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -1630,9 +1448,6 @@
     const messageFieldWrap = document.getElementById("messageFieldWrap");
     const messageHelp = document.getElementById("messageHelp");
 
-    const legalButtons = document.querySelectorAll(".legal-toggle");
-    const legalContents = document.querySelectorAll(".legal-content");
-
     let activeQuickFilter = "all";
 
     function getSurahLink(number) {
@@ -1677,20 +1492,6 @@
       } catch (error) {
         applyTheme("light");
       }
-    }
-
-    function bindLegalTabs() {
-      legalButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const target = button.getAttribute("data-legal-target");
-
-          legalButtons.forEach((item) => item.classList.remove("active"));
-          legalContents.forEach((item) => item.classList.remove("active"));
-
-          button.classList.add("active");
-          document.getElementById(target).classList.add("active");
-        });
-      });
     }
 
     function openSurah(number) {
@@ -2119,7 +1920,6 @@
     bindQuickFilters();
     bindThemeToggle();
     bindContactFormLogic();
-    bindLegalTabs();
     renderContinueReading();
     renderSurahs();
     renderJuz();
