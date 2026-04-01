@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate" />
+  <meta name="translate" content="no" />
   <title>The English Qur’an</title>
   <meta
     name="description"
@@ -743,15 +745,21 @@
       width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
+    }
+
+    .footer-inner-legal {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .footer-copy {
       display: grid;
       gap: 4px;
+      justify-items: center;
     }
 
     .footer p {
@@ -760,10 +768,21 @@
       font-size: 0.95rem;
     }
 
+    .footer-warning {
+      max-width: 920px;
+      font-size: 0.84rem;
+      line-height: 1.7;
+    }
+
     .footer-links {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+    }
+
+    .footer-links-main,
+    .footer-links-legal {
+      justify-content: center;
     }
 
     .footer-links a {
@@ -778,6 +797,31 @@
       justify-content: center;
       min-height: 40px;
       text-align: center;
+      transition: 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      background: var(--accent-soft);
+      border-color: rgba(30, 107, 92, 0.3);
+      color: var(--accent-deep);
+    }
+
+    .footer-links-legal {
+      margin-top: 2px;
+    }
+
+    .legal-link-btn {
+      min-width: 98px;
+      padding: 10px 16px;
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .legal-link-btn:hover {
+      background: var(--accent-soft);
+      border-color: rgba(30, 107, 92, 0.34);
+      color: var(--accent-deep);
     }
 
     .empty-state {
@@ -891,6 +935,22 @@
       .contact-actions {
         flex-direction: column;
         align-items: stretch;
+      }
+
+      .footer-links-main,
+      .footer-links-legal {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .footer-links-main a,
+      .footer-links-legal a {
+        width: 100%;
+      }
+
+      .footer-warning {
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -1197,17 +1257,25 @@
   </main>
 
   <footer class="footer">
-    <div class="footer-inner">
+    <div class="footer-inner footer-inner-legal">
       <div class="footer-copy">
-        <p>© 2015–2026 Al-Hikmah Publishing UK </p>
+        <p>© 2026 Al-Hikmah Publishing Ltd (UK). All rights reserved.</p>
         <p>The English Qur’an™, translated by Dr A K Khan.</p>
+        <p class="footer-warning">No part of this translation may be reproduced, distributed, republished, scraped, or used for AI training without written permission.</p>
       </div>
-      <div class="footer-links">
+
+      <div class="footer-links footer-links-main">
         <a href="#surahs">Browse Surahs</a>
         <a href="#juz">Browse Juz</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <a href="surah-1.html">Read Surah 1</a>
+      </div>
+
+      <div class="footer-links footer-links-legal">
+        <a href="terms.html" class="legal-link-btn">Terms</a>
+        <a href="privacy.html" class="legal-link-btn">Privacy</a>
+        <a href="copyright.html" class="legal-link-btn">Permissions</a>
       </div>
     </div>
   </footer>
