@@ -325,11 +325,11 @@
       background: color-mix(in srgb, var(--surface-soft) 85%, var(--accent-soft) 15%);
     }
 
-    .panel-picker-wrap {
+    .listen-picker-wrap {
       position: relative;
     }
 
-    .surah-panel {
+    .listen-surah-panel {
       position: absolute;
       top: calc(100% + 12px);
       left: 0;
@@ -342,13 +342,13 @@
       overflow: hidden;
     }
 
-    .surah-panel-inner {
+    .listen-surah-panel-inner {
       display: flex;
       flex-direction: column;
       max-height: 520px;
     }
 
-    .surah-panel-head {
+    .listen-panel-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -358,13 +358,13 @@
       background: color-mix(in srgb, var(--surface) 90%, var(--accent-soft) 10%);
     }
 
-    .surah-panel-head h3 {
+    .listen-panel-head h3 {
       margin: 0;
       font-size: 1rem;
       letter-spacing: -0.02em;
     }
 
-    .surah-close-btn {
+    .listen-close-btn {
       width: 38px;
       height: 38px;
       border-radius: 999px;
@@ -380,17 +380,17 @@
       line-height: 1;
     }
 
-    .surah-close-btn:hover {
+    .listen-close-btn:hover {
       background: var(--accent-soft);
       color: var(--accent-deep);
       border-color: rgba(30, 107, 92, 0.28);
     }
 
-    .surah-panel-search {
+    .listen-panel-search {
       padding: 14px 18px 0;
     }
 
-    .surah-panel-search input {
+    .listen-panel-search input {
       width: 100%;
       min-height: 48px;
       padding: 0 14px;
@@ -402,12 +402,12 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .surah-panel-search input:focus {
+    .listen-panel-search input:focus {
       border-color: rgba(30, 107, 92, 0.55);
       box-shadow: 0 0 0 4px rgba(30, 107, 92, 0.12);
     }
 
-    .surah-panel-list {
+    .listen-surah-list {
       padding: 14px;
       overflow-y: auto;
       display: grid;
@@ -415,7 +415,7 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .surah-panel-link {
+    .listen-surah-link {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -426,13 +426,13 @@
       transition: 0.2s ease;
     }
 
-    .surah-panel-link:hover {
+    .listen-surah-link:hover {
       transform: translateY(-1px);
       border-color: rgba(30, 107, 92, 0.28);
       background: color-mix(in srgb, var(--surface-soft) 82%, var(--accent-soft) 18%);
     }
 
-    .surah-panel-number {
+    .listen-surah-number {
       width: 40px;
       height: 40px;
       border-radius: 12px;
@@ -445,13 +445,13 @@
       flex-shrink: 0;
     }
 
-    .surah-panel-name {
+    .listen-surah-name {
       font-weight: 600;
       letter-spacing: -0.01em;
       color: var(--text);
     }
 
-    .surah-panel-empty {
+    .listen-empty {
       padding: 18px 12px;
       text-align: center;
       color: var(--muted);
@@ -1143,7 +1143,7 @@
         padding: 22px;
       }
 
-      .surah-panel {
+      .listen-surah-panel {
         position: static;
         width: 100%;
         margin-top: 12px;
@@ -1208,17 +1208,165 @@
         align-items: center;
       }
 
-      .panel-picker-wrap {
+      .listen-picker-wrap {
         width: 100%;
       }
 
-      .surah-panel {
+      .listen-surah-panel {
         width: 100%;
       }
     }
   </style>
 </head>
-<body>
+
+  <body>
+
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="topbar-inner">
+
+      <!-- Brand -->
+      <div class="brand">
+        <div class="brand-mark">Q</div>
+        <div class="brand-text">
+          <h1>The English Qur’an</h1>
+          <p>A clear and faithful modern translation</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="nav">
+        <a href="#read">Start Reading</a>
+        <a href="#listen">Start Listening</a>
+        <a href="#surahs">Surahs</a>
+        <a href="#about">About</a>
+        <button class="theme-toggle" id="themeToggle">☾</button>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+  <div class="hero-grid">
+
+    <!-- Left: Main Hero -->
+    <div class="hero-card">
+
+      <div class="eyebrow">Read • Reflect • Listen</div>
+
+      <h2>
+        The English Qur’an<span class="tm-mark">™</span>
+      </h2>
+
+      <p class="subtitle">
+        A clear, faithful, and modern English rendering of the Qur’an,
+        designed for deep understanding, reflection, and daily reading.
+      </p>
+
+      <!-- ACTION BUTTONS -->
+      <div class="hero-actions">
+
+        <!-- TOP Start Reading (UNCHANGED) -->
+        <a href="#read" class="button button-secondary">
+          Start Reading
+        </a>
+
+        <!-- Start Listening (ORIGINAL TOGGLE) -->
+        <div class="listen-picker-wrap">
+          <button class="button button-primary" id="listenToggleBtn">
+            Start Listening
+          </button>
+
+          <!-- LISTEN PANEL -->
+          <div class="listen-surah-panel" id="listenPanel" style="display:none;">
+            <div class="listen-surah-panel-inner">
+
+              <div class="listen-panel-head">
+                <h3>Select a Surah</h3>
+                <button class="listen-close-btn" id="listenCloseBtn">×</button>
+              </div>
+
+              <div class="listen-panel-search">
+                <input type="text" placeholder="Search surah..." id="listenSearch" />
+              </div>
+
+              <div class="listen-surah-list" id="listenSurahList">
+                <!-- 114 SURAHS WILL BE POPULATED BY JS -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 🔥 MIDDLE BUTTON (YOUR MODIFICATION TARGET) -->
+      <div class="quick-nav">
+
+        <!-- THIS will become SAME toggle as listening -->
+        <div class="listen-picker-wrap">
+          <button class="button button-secondary" id="readToggleBtn">
+            Start Reading
+          </button>
+
+          <!-- CLONED PANEL (same design as listening) -->
+          <div class="listen-surah-panel" id="readPanel" style="display:none;">
+            <div class="listen-surah-panel-inner">
+
+              <div class="listen-panel-head">
+                <h3>Select a Surah</h3>
+                <button class="listen-close-btn" id="readCloseBtn">×</button>
+              </div>
+
+              <div class="listen-panel-search">
+                <input type="text" placeholder="Search surah..." id="readSearch" />
+              </div>
+
+              <div class="listen-surah-list" id="readSurahList">
+                <!-- SAME 114 SURAHS (shared logic) -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Key Points -->
+      <ul class="hero-points">
+        <li>Clear modern English rooted in the Arabic meaning</li>
+        <li>Designed for reading, reflection, and structured study</li>
+        <li>Integrated listening with synchronised recitation</li>
+      </ul>
+
+    </div>
+
+    <!-- Right Info Panel -->
+    <div class="info-card">
+
+      <div class="info-block">
+        <h3>114 Surahs</h3>
+        <p>Complete Qur’an structure with intuitive navigation.</p>
+      </div>
+
+      <div class="info-block">
+        <h3>30 Juz</h3>
+        <p>Read and track your progress through traditional divisions.</p>
+      </div>
+
+      <div class="info-block">
+        <h3>Smart Access</h3>
+        <p>Quickly reach any surah, verse, or section with ease.</p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+    <body>
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -1261,7 +1409,7 @@
             <div class="hero-actions">
               <a class="button button-primary" href="surah-1.html">Start Reading</a>
 
-              <div class="panel-picker-wrap">
+              <div class="listen-picker-wrap">
                 <button
                   class="button button-secondary"
                   id="startListeningToggle"
@@ -1272,14 +1420,14 @@
                   Start Listening
                 </button>
 
-                <div id="listenSurahPanel" class="surah-panel" hidden>
-                  <div class="surah-panel-inner">
-                    <div class="surah-panel-head">
+                <div id="listenSurahPanel" class="listen-surah-panel" hidden>
+                  <div class="listen-surah-panel-inner">
+                    <div class="listen-panel-head">
                       <h3>Select a Surah</h3>
-                      <button id="closeListeningPanel" class="surah-close-btn" type="button" aria-label="Close surah list">×</button>
+                      <button id="closeListeningPanel" class="listen-close-btn" type="button" aria-label="Close surah list">×</button>
                     </div>
 
-                    <div class="surah-panel-search">
+                    <div class="listen-panel-search">
                       <input
                         id="listenSurahSearch"
                         type="text"
@@ -1288,15 +1436,15 @@
                       />
                     </div>
 
-                    <div id="listenSurahList" class="surah-panel-list"></div>
+                    <div id="listenSurahList" class="listen-surah-list"></div>
                   </div>
                 </div>
               </div>
 
-              <div class="panel-picker-wrap">
+                            <div class="listen-picker-wrap">
                 <button
                   class="button button-secondary"
-                  id="startReadingToggleMiddle"
+                  id="startReadingToggle"
                   type="button"
                   aria-expanded="false"
                   aria-controls="readSurahPanel"
@@ -1304,14 +1452,14 @@
                   Start Reading
                 </button>
 
-                <div id="readSurahPanel" class="surah-panel" hidden>
-                  <div class="surah-panel-inner">
-                    <div class="surah-panel-head">
+                <div id="readSurahPanel" class="listen-surah-panel" hidden>
+                  <div class="listen-surah-panel-inner">
+                    <div class="listen-panel-head">
                       <h3>Select a Surah</h3>
-                      <button id="closeReadingPanel" class="surah-close-btn" type="button" aria-label="Close surah list">×</button>
+                      <button id="closeReadingPanel" class="listen-close-btn" type="button" aria-label="Close surah list">×</button>
                     </div>
 
-                    <div class="surah-panel-search">
+                    <div class="listen-panel-search">
                       <input
                         id="readSurahSearch"
                         type="text"
@@ -1320,7 +1468,7 @@
                       />
                     </div>
 
-                    <div id="readSurahList" class="surah-panel-list"></div>
+                    <div id="readSurahList" class="listen-surah-list"></div>
                   </div>
                 </div>
               </div>
@@ -1428,7 +1576,73 @@
       </div>
     </section>
 
-    <section class="section" id="surahs">
+    <section class="section">
+  <div class="container">
+    <div class="search-panel">
+
+      <div class="section-head">
+        <div>
+          <h3>Smart Search</h3>
+          <p>Find any surah or verse quickly, with direct access to reading.</p>
+        </div>
+      </div>
+
+      <div class="search-grid">
+
+        <!-- SEARCH BOX -->
+        <div class="smart-search-field">
+          <label>Search</label>
+
+          <div class="smart-search-input-wrap">
+            <input
+              type="text"
+              id="smartSearchInput"
+              placeholder="e.g. 2:255 or Al Baqarah 255"
+            />
+          </div>
+        </div>
+
+        <!-- SURAHS -->
+        <div class="field">
+          <label>Surah</label>
+          <select id="surahSelect">
+            <option value="">Select Surah</option>
+          </select>
+        </div>
+
+        <!-- VERSES -->
+        <div class="field">
+          <label>Verse</label>
+          <select id="verseSelect" disabled>
+            <option value="">Verse</option>
+          </select>
+        </div>
+
+        <!-- GO BUTTON -->
+        <div class="field">
+          <button class="button button-primary" id="goToVerseBtn">
+            Go
+          </button>
+        </div>
+
+      </div>
+
+      <!-- 🔥 CLEAR BUTTON BELOW (YOUR FIX) -->
+      <div style="margin-top:12px;">
+        <button class="mini-button" id="clearSearchBtn">
+          Clear
+        </button>
+      </div>
+
+      <p class="search-help">
+        Tip: You can search using surah name, number, or direct reference like 36:1.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+        <section class="section" id="surahs">
       <div class="container">
         <div class="section-head">
           <div>
@@ -1566,7 +1780,7 @@
       </div>
     </section>
 
-    <section class="section" id="about">
+     <section class="section" id="about">
       <div class="container">
         <div class="about-section">
           <div class="section-head">
@@ -1890,12 +2104,6 @@
     const closeListeningPanel = document.getElementById("closeListeningPanel");
     const listenSurahList = document.getElementById("listenSurahList");
     const listenSurahSearch = document.getElementById("listenSurahSearch");
-
-    const startReadingToggleMiddle = document.getElementById("startReadingToggleMiddle");
-    const readSurahPanel = document.getElementById("readSurahPanel");
-    const closeReadingPanel = document.getElementById("closeReadingPanel");
-    const readSurahList = document.getElementById("readSurahList");
-    const readSurahSearch = document.getElementById("readSurahSearch");
 
     let activeQuickFilter = "all";
 
@@ -2344,31 +2552,15 @@
 
     function renderListenSurahList(filteredSurahs = surahs) {
       if (!filteredSurahs.length) {
-        listenSurahList.innerHTML = `<div class="surah-panel-empty">No surahs matched your search.</div>`;
+        listenSurahList.innerHTML = `<div class="listen-empty">No surahs matched your search.</div>`;
         return;
       }
 
       listenSurahList.innerHTML = filteredSurahs.map((surah) => {
         return `
-          <a class="surah-panel-link" href="${getListeningLink(surah.number)}">
-            <span class="surah-panel-number">${surah.number}</span>
-            <span class="surah-panel-name">${surah.english}</span>
-          </a>
-        `;
-      }).join("");
-    }
-
-    function renderReadSurahList(filteredSurahs = surahs) {
-      if (!filteredSurahs.length) {
-        readSurahList.innerHTML = `<div class="surah-panel-empty">No surahs matched your search.</div>`;
-        return;
-      }
-
-      readSurahList.innerHTML = filteredSurahs.map((surah) => {
-        return `
-          <a class="surah-panel-link" href="${getSurahLink(surah.number)}">
-            <span class="surah-panel-number">${surah.number}</span>
-            <span class="surah-panel-name">${surah.english}</span>
+          <a class="listen-surah-link" href="${getListeningLink(surah.number)}">
+            <span class="listen-surah-number">${surah.number}</span>
+            <span class="listen-surah-name">${surah.english}</span>
           </a>
         `;
       }).join("");
@@ -2388,27 +2580,11 @@
       renderListenSurahList();
     }
 
-    function openReadingPanel() {
-      readSurahPanel.hidden = false;
-      startReadingToggleMiddle.setAttribute("aria-expanded", "true");
-      renderReadSurahList();
-      requestAnimationFrame(() => readSurahSearch.focus());
-    }
-
-    function closeReadingPanelFn() {
-      readSurahPanel.hidden = true;
-      startReadingToggleMiddle.setAttribute("aria-expanded", "false");
-      readSurahSearch.value = "";
-      renderReadSurahList();
-    }
-
     function bindListeningPanel() {
       renderListenSurahList();
-      renderReadSurahList();
 
       startListeningToggle.addEventListener("click", () => {
         if (listenSurahPanel.hidden) {
-          closeReadingPanelFn();
           openListeningPanel();
         } else {
           closeListeningPanelFn();
@@ -2435,58 +2611,18 @@
         renderListenSurahList(filtered);
       });
 
-      startReadingToggleMiddle.addEventListener("click", () => {
-        if (readSurahPanel.hidden) {
-          closeListeningPanelFn();
-          openReadingPanel();
-        } else {
-          closeReadingPanelFn();
-        }
-      });
-
-      closeReadingPanel.addEventListener("click", closeReadingPanelFn);
-
-      readSurahSearch.addEventListener("input", () => {
-        const query = normaliseText(readSurahSearch.value);
-        if (!query) {
-          renderReadSurahList();
-          return;
-        }
-
-        const filtered = surahs.filter((surah) => {
-          return (
-            surah.number.toString().includes(query) ||
-            normaliseText(surah.english).includes(query) ||
-            surah.arabic.includes(readSurahSearch.value.trim())
-          );
-        });
-
-        renderReadSurahList(filtered);
-      });
-
       document.addEventListener("click", (event) => {
-        const withinListenPanel = listenSurahPanel.contains(event.target);
-        const withinListenToggle = startListeningToggle.contains(event.target);
-        const withinReadPanel = readSurahPanel.contains(event.target);
-        const withinReadToggle = startReadingToggleMiddle.contains(event.target);
+        const withinPanel = listenSurahPanel.contains(event.target);
+        const withinToggle = startListeningToggle.contains(event.target);
 
-        if (!listenSurahPanel.hidden && !withinListenPanel && !withinListenToggle) {
+        if (!listenSurahPanel.hidden && !withinPanel && !withinToggle) {
           closeListeningPanelFn();
-        }
-
-        if (!readSurahPanel.hidden && !withinReadPanel && !withinReadToggle) {
-          closeReadingPanelFn();
         }
       });
 
       document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          if (!listenSurahPanel.hidden) {
-            closeListeningPanelFn();
-          }
-          if (!readSurahPanel.hidden) {
-            closeReadingPanelFn();
-          }
+        if (event.key === "Escape" && !listenSurahPanel.hidden) {
+          closeListeningPanelFn();
         }
       });
     }
