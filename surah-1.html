@@ -1349,7 +1349,7 @@
 
             <div class="audio-card">
               <div class="audio-meta" id="audioMeta" translate="no">Selected reciter: Sheikh Abdur-Rahman as-Sudais</div>
-              <audio id="surahAudioPlayer" controls preload="none"></audio>
+              <audio id="surahAudioPlayer" controls preload="auto"></audio>
               <div class="listen-note" id="listenNote" translate="no">Choose any reciter, then listen and read comfortably in any mode you select.</div>
             </div>
           </div>
@@ -1506,6 +1506,8 @@
     let lastAutoScrolledVerse = null;
 
     let recitationStartAtBeginning = true;
+    let pendingAutoplayStart = false;
+    let autoplayAttempted = false;
 
     function escapeHtml(text) {
       return String(text)
@@ -1808,11 +1810,6 @@
       }
     }
 
-    function openBookmarkPanel() {
-      bookmarkPanel.classList.add("active");
-      bookmarkOpen.setAttribute("aria-expanded", "true");
-    }
-
     function closeBookmarkPanel() {
       bookmarkPanel.classList.remove("active");
       bookmarkOpen.setAttribute("aria-expanded", "false");
@@ -2024,7 +2021,7 @@
       return { audioUrl, timestamps, byVerse };
     }
 
-    async function loadSelectedAudio(autoplay = false) {
+    async function loadSelectedAudio() {
       const reciterKey = reciterSelect.value;
       const reciter = reciters[reciterKey];
       if (!reciter) return;
@@ -2053,10 +2050,8 @@
         lastAutoScrolledVerse = null;
 
         audioMeta.textContent = `Selected reciter: ${reciter.name}`;
-
-        if (autoplay) {
-          surahAudioPlayer.play().catch(() => {});
-        }
+        syncPlayPause.textContent = "Play";
+        updateSyncBarState();
       } catch (error) {
         console.error(error);
         currentAudioUrl = "";
@@ -2127,7 +2122,13 @@
         processSyncedPlayback();
 
         if (shouldPlay) {
-          surahAudioPlayer.play().catch(() => {});
+          surahAudioPlayer.play().then(() => {
+            syncPlayPause.textContent = "Pause";
+            updateSyncBarState();
+          }).catch(() => {
+            syncPlayPause.textContent = "Play";
+            updateSyncBarState();
+          });
         }
       };
 
@@ -2249,9 +2250,6 @@
     }
 
     function goToNextSurahWithRecitation() {
-      localStorage.setItem("teq-audio-next-reciter", reciterSelect.value);
-      localStorage.setItem("teq-audio-next-view", "synced");
-      localStorage.setItem("teq-audio-next-autoplay", "true");
       window.location.href = `${nextSurahFile}?reciter=${encodeURIComponent(reciterSelect.value)}&view=synced&autoplay=1`;
     }
 
@@ -2328,6 +2326,11 @@
     }
 
     function handleInitialVerseJump() {
+      if (shouldAutoplay) {
+        setCurrentVisibleVerse(1, false);
+        return;
+      }
+
       const params = new URLSearchParams(window.location.search);
       const ayahParam = params.get("ayah");
       const hash = window.location.hash;
@@ -2487,6 +2490,8 @@
         console.error(error);
       }
 
+      pendingAutoplayStart = false;
+      autoplayAttempted = true;
       singleVerseMode = false;
       singleVerseNumber = null;
       continueVerseNumber = null;
@@ -2499,6 +2504,22 @@
       gentleScrollToElement(document.getElementById("content"), { center: false, duration: 560 });
     }
 
+    function triggerAutoplayStart() {
+      if (!pendingAutoplayStart || autoplayAttempted) return;
+      if (!currentAudioUrl || !syncByVerse[1]) return;
+
+      autoplayAttempted = true;
+      pendingAutoplayStart = false;
+      setActiveTab("read");
+      applyAudioView("synced", true);
+      syncPlayPause.textContent = "Pause";
+      updateSyncBarState();
+
+      requestAnimationFrame(() => {
+        beginSelectedRecitationFromVerse(1, true, false);
+      });
+    }
+
     async function applyAutoplayFromUrl() {
       if (!shouldAutoplay) return;
 
@@ -2507,21 +2528,23 @@
         audioMeta.textContent = `Selected reciter: ${reciters[autoplayReciter].name}`;
       }
 
-      if (autoplayView === "synced") {
-        applyAudioView("synced", true);
+      setCurrentVisibleVerse(1, false);
+      setActiveTab("read");
+      applyAudioView("synced", true);
+      syncPlayPause.textContent = "Play";
+      updateSyncBarState();
+
+      pendingAutoplayStart = true;
+      autoplayAttempted = false;
+
+      await loadSelectedAudio();
+
+      if (surahAudioPlayer.readyState >= 2) {
+        triggerAutoplayStart();
       } else {
-        applyAudioView("standard", false);
+        surahAudioPlayer.addEventListener("canplay", triggerAutoplayStart, { once: true });
+        surahAudioPlayer.addEventListener("loadeddata", triggerAutoplayStart, { once: true });
       }
-
-      await loadSelectedAudio(false);
-
-      setTimeout(() => {
-        if (currentAudioView === "synced") {
-          beginSelectedRecitationFromVerse(1, true, false);
-        } else {
-          surahAudioPlayer.play().catch(() => {});
-        }
-      }, 500);
     }
 
     tabButtons.forEach((button) => {
@@ -2541,8 +2564,9 @@
       button.addEventListener("click", async () => {
         if (button.dataset.audioView === "synced") {
           applyAudioView("synced", true);
+          setActiveTab("read");
           if (!currentAudioUrl) {
-            await loadSelectedAudio(false);
+            await loadSelectedAudio();
           }
           updateSyncBarState();
         } else {
@@ -2590,8 +2614,8 @@
       clearBookmarkHistory();
     });
 
-    loadAudioButton.addEventListener("click", () => {
-      loadSelectedAudio(false);
+    loadAudioButton.addEventListener("click", async () => {
+      await loadSelectedAudio();
     });
 
     reciterSelect.addEventListener("change", () => {
@@ -2603,18 +2627,28 @@
 
     syncPlayPause.addEventListener("click", async () => {
       if (!surahAudioPlayer.src && !currentAudioUrl) {
-        await loadSelectedAudio(false);
+        await loadSelectedAudio();
       }
 
       hidePrompt();
 
       if (surahAudioPlayer.paused) {
+        if (currentAudioView !== "synced") {
+          applyAudioView("synced", true);
+        }
+
         if (currentAudioView === "synced" && recitationStartAtBeginning) {
           beginSelectedRecitationFromVerse(1, true, false);
           return;
         }
 
-        surahAudioPlayer.play().catch(() => {});
+        surahAudioPlayer.play().then(() => {
+          syncPlayPause.textContent = "Pause";
+          updateSyncBarState();
+        }).catch(() => {
+          syncPlayPause.textContent = "Play";
+          updateSyncBarState();
+        });
       } else {
         surahAudioPlayer.pause();
       }
@@ -2646,20 +2680,35 @@
       processSyncedPlayback();
     });
 
+    surahAudioPlayer.addEventListener("loadeddata", () => {
+      if (pendingAutoplayStart && !autoplayAttempted) {
+        triggerAutoplayStart();
+      }
+    });
+
+    surahAudioPlayer.addEventListener("canplay", () => {
+      if (pendingAutoplayStart && !autoplayAttempted) {
+        triggerAutoplayStart();
+      }
+    });
+
     surahAudioPlayer.addEventListener("play", async () => {
       hidePrompt();
+      syncPlayPause.textContent = "Pause";
       updateSyncBarState();
       await requestWakeLock();
       maintainWakeLock();
     });
 
     surahAudioPlayer.addEventListener("pause", async () => {
+      syncPlayPause.textContent = "Play";
       updateSyncBarState();
       clearTimeout(wakeLockRefreshTimer);
       await releaseWakeLock();
     });
 
     surahAudioPlayer.addEventListener("ended", async () => {
+      syncPlayPause.textContent = "Play";
       updateSyncBarState();
       clearTimeout(wakeLockRefreshTimer);
       await releaseWakeLock();
@@ -2669,7 +2718,6 @@
       }
 
       clearAllHighlights();
-      syncPlayPause.textContent = "Play";
       recitationStartAtBeginning = true;
       lastAutoScrolledVerse = null;
     });
@@ -2693,7 +2741,6 @@
         renderVerses(verseData);
         buildVerseSelector();
         applyMode("bilingual");
-        applyAudioView("standard", false);
         updateBookmarkUI();
 
         loadingState.style.display = "none";
@@ -2705,7 +2752,8 @@
         if (shouldAutoplay) {
           await applyAutoplayFromUrl();
         } else {
-          await loadSelectedAudio(false);
+          applyAudioView("standard", false);
+          await loadSelectedAudio();
         }
       } catch (error) {
         console.error(error);
