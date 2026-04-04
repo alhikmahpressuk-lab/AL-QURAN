@@ -152,7 +152,6 @@
     }
 
     .nav a,
-    .nav button,
     .theme-toggle {
       min-height: 42px;
       padding: 0 16px;
@@ -172,7 +171,6 @@
     }
 
     .nav a:hover,
-    .nav button:hover,
     .theme-toggle:hover {
       background: var(--surface);
       color: var(--text);
@@ -327,11 +325,11 @@
       background: color-mix(in srgb, var(--surface-soft) 85%, var(--accent-soft) 15%);
     }
 
-    .panel-trigger-wrap {
+    .listen-picker-wrap {
       position: relative;
     }
 
-    .surah-picker-panel {
+    .listen-surah-panel {
       position: absolute;
       top: calc(100% + 12px);
       left: 0;
@@ -344,13 +342,13 @@
       overflow: hidden;
     }
 
-    .surah-picker-panel-inner {
+    .listen-surah-panel-inner {
       display: flex;
       flex-direction: column;
       max-height: 520px;
     }
 
-    .panel-head {
+    .listen-panel-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -360,13 +358,13 @@
       background: color-mix(in srgb, var(--surface) 90%, var(--accent-soft) 10%);
     }
 
-    .panel-head h3 {
+    .listen-panel-head h3 {
       margin: 0;
       font-size: 1rem;
       letter-spacing: -0.02em;
     }
 
-    .panel-close-btn {
+    .listen-close-btn {
       width: 38px;
       height: 38px;
       border-radius: 999px;
@@ -382,17 +380,17 @@
       line-height: 1;
     }
 
-    .panel-close-btn:hover {
+    .listen-close-btn:hover {
       background: var(--accent-soft);
       color: var(--accent-deep);
       border-color: rgba(30, 107, 92, 0.28);
     }
 
-    .panel-search {
+    .listen-panel-search {
       padding: 14px 18px 0;
     }
 
-    .panel-search input {
+    .listen-panel-search input {
       width: 100%;
       min-height: 48px;
       padding: 0 14px;
@@ -404,12 +402,12 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .panel-search input:focus {
+    .listen-panel-search input:focus {
       border-color: rgba(30, 107, 92, 0.55);
       box-shadow: 0 0 0 4px rgba(30, 107, 92, 0.12);
     }
 
-    .surah-picker-list {
+    .listen-surah-list {
       padding: 14px;
       overflow-y: auto;
       display: grid;
@@ -417,7 +415,7 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    .surah-picker-link {
+    .listen-surah-link {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -428,13 +426,13 @@
       transition: 0.2s ease;
     }
 
-    .surah-picker-link:hover {
+    .listen-surah-link:hover {
       transform: translateY(-1px);
       border-color: rgba(30, 107, 92, 0.28);
       background: color-mix(in srgb, var(--surface-soft) 82%, var(--accent-soft) 18%);
     }
 
-    .surah-picker-number {
+    .listen-surah-number {
       width: 40px;
       height: 40px;
       border-radius: 12px;
@@ -447,13 +445,13 @@
       flex-shrink: 0;
     }
 
-    .surah-picker-name {
+    .listen-surah-name {
       font-weight: 600;
       letter-spacing: -0.01em;
       color: var(--text);
     }
 
-    .panel-empty {
+    .listen-empty {
       padding: 18px 12px;
       text-align: center;
       color: var(--muted);
@@ -619,7 +617,23 @@
     }
 
     .search-grid {
-      grid-template-columns: 1.55fr 0.95fr 0.85fr 0.85fr;
+      grid-template-columns: minmax(0, 1.55fr) minmax(140px, auto) minmax(0, 0.95fr) minmax(0, 0.85fr) minmax(0, 0.85fr);
+      align-items: end;
+    }
+
+    .smart-search-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .smart-search-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .smart-search-input-wrap input {
+      flex: 1 1 auto;
     }
 
     .contact-grid {
@@ -1099,7 +1113,7 @@
         padding: 22px;
       }
 
-      .surah-picker-panel {
+      .listen-surah-panel {
         position: static;
         width: 100%;
         margin-top: 12px;
@@ -1127,7 +1141,6 @@
       }
 
       .nav a,
-      .nav button,
       .theme-toggle {
         min-height: 38px;
         padding: 0 12px;
@@ -1138,6 +1151,11 @@
       .mini-button,
       .book-link {
         width: 100%;
+      }
+
+      .smart-search-input-wrap {
+        flex-direction: column;
+        align-items: stretch;
       }
 
       .surah-actions,
@@ -1156,11 +1174,11 @@
         align-items: center;
       }
 
-      .panel-trigger-wrap {
+      .listen-picker-wrap {
         width: 100%;
       }
 
-      .surah-picker-panel {
+      .listen-surah-panel {
         width: 100%;
       }
     }
@@ -1183,23 +1201,7 @@
         <a href="#about">About</a>
         <a href="#book">Book</a>
         <a href="#contact">Contact</a>
-
-        <div class="panel-trigger-wrap">
-          <button class="cta" type="button" id="topReadingToggle" aria-expanded="false" aria-controls="topReadingPanel">Start Reading</button>
-          <div id="topReadingPanel" class="surah-picker-panel" hidden>
-            <div class="surah-picker-panel-inner">
-              <div class="panel-head">
-                <h3>Start Reading</h3>
-                <button class="panel-close-btn" type="button" data-panel-close="topReading" aria-label="Close reading list">×</button>
-              </div>
-              <div class="panel-search">
-                <input id="topReadingSearch" type="text" placeholder="Search by surah name or number" autocomplete="off" />
-              </div>
-              <div id="topReadingList" class="surah-picker-list"></div>
-            </div>
-          </div>
-        </div>
-
+        <a class="cta" href="surah-1.html">Start Reading</a>
         <button class="theme-toggle" type="button" id="themeToggle">Dark</button>
       </nav>
     </div>
@@ -1217,39 +1219,9 @@
             </p>
 
             <div class="hero-actions">
-              <div class="panel-trigger-wrap">
-                <button
-                  class="button button-primary"
-                  id="heroReadingToggle"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="heroReadingPanel"
-                >
-                  Start Reading
-                </button>
+              <a class="button button-primary" href="surah-1.html">Start Reading</a>
 
-                <div id="heroReadingPanel" class="surah-picker-panel" hidden>
-                  <div class="surah-picker-panel-inner">
-                    <div class="panel-head">
-                      <h3>Start Reading</h3>
-                      <button class="panel-close-btn" type="button" data-panel-close="heroReading" aria-label="Close reading list">×</button>
-                    </div>
-
-                    <div class="panel-search">
-                      <input
-                        id="heroReadingSearch"
-                        type="text"
-                        placeholder="Search by surah name or number"
-                        autocomplete="off"
-                      />
-                    </div>
-
-                    <div id="heroReadingList" class="surah-picker-list"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel-trigger-wrap">
+              <div class="listen-picker-wrap">
                 <button
                   class="button button-secondary"
                   id="startListeningToggle"
@@ -1260,14 +1232,14 @@
                   Start Listening
                 </button>
 
-                <div id="listenSurahPanel" class="surah-picker-panel" hidden>
-                  <div class="surah-picker-panel-inner">
-                    <div class="panel-head">
-                      <h3>Start Listening</h3>
-                      <button id="closeListeningPanel" class="panel-close-btn" type="button" aria-label="Close surah list">×</button>
+                <div id="listenSurahPanel" class="listen-surah-panel" hidden>
+                  <div class="listen-surah-panel-inner">
+                    <div class="listen-panel-head">
+                      <h3>Select a Surah</h3>
+                      <button id="closeListeningPanel" class="listen-close-btn" type="button" aria-label="Close surah list">×</button>
                     </div>
 
-                    <div class="panel-search">
+                    <div class="listen-panel-search">
                       <input
                         id="listenSurahSearch"
                         type="text"
@@ -1276,7 +1248,7 @@
                       />
                     </div>
 
-                    <div id="listenSurahList" class="surah-picker-list"></div>
+                    <div id="listenSurahList" class="listen-surah-list"></div>
                   </div>
                 </div>
               </div>
@@ -1395,9 +1367,12 @@
 
         <div class="search-panel">
           <div class="search-grid">
-            <div class="field">
+            <div class="smart-search-field">
               <label for="searchInput">Smart search</label>
-              <input id="searchInput" type="text" placeholder="Try: Al Baqarah, 2, 2:255, Juz 30, Ya Sin 58" autocomplete="off" />
+              <div class="smart-search-input-wrap">
+                <input id="searchInput" type="text" placeholder="Try: Al Baqarah, 2, 2:255, Juz 30, Ya Sin 58" autocomplete="off" />
+                <button class="mini-button" type="button" id="clearSearchButton">Clear</button>
+              </div>
             </div>
 
             <div class="field">
@@ -1626,7 +1601,7 @@
 
             <div class="support-actions">
               <a class="button button-primary" href="https://www.paypal.com/donate/?hosted_button_id=TRXETFJ2KKWQE" target="_blank" rel="noopener noreferrer">Donate with PayPal</a>
-              <span class="support-note">The English Qur’an Project is part of Al-Hikmah School, a CIO based in the UK, and is published by Al-Hikmah Publishing UK.</span>
+              <span class="support-note">The English Qur’an Project is part of Al-Hikmah School CIO (Charity Incorporated Organisation) based in the UK and is published by Al-Hikmah Publishing UK.</span>
             </div>
           </div>
         </div>
@@ -1637,7 +1612,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-copy">
-        <p>© 2015–2026 Al-Hikmah Publishing UK</p>
+        <p>© 2015–2026 Al-Hikmah Publishing UK. All Rights Reserved.</p>
         <p>The English Qur’an™, translated by Dr A K Khan.</p>
       </div>
 
@@ -1810,9 +1785,10 @@
       { juz: 30, start: { surah: 78, verse: 1 }, end: { surah: 114, verse: 6 } }
     ];
 
-    const juzStartSurahNumbers = new Set(juzData.map((item) => item.start.surah));
+    const juzStartSurahNumbers = new Set(juzData.map(item => item.start.surah));
 
     const searchInput = document.getElementById("searchInput");
+    const clearSearchButton = document.getElementById("clearSearchButton");
     const surahFilter = document.getElementById("surahFilter");
     const verseFilter = document.getElementById("verseFilter");
     const juzFilter = document.getElementById("juzFilter");
@@ -1839,16 +1815,6 @@
     const closeListeningPanel = document.getElementById("closeListeningPanel");
     const listenSurahList = document.getElementById("listenSurahList");
     const listenSurahSearch = document.getElementById("listenSurahSearch");
-
-    const heroReadingToggle = document.getElementById("heroReadingToggle");
-    const heroReadingPanel = document.getElementById("heroReadingPanel");
-    const heroReadingSearch = document.getElementById("heroReadingSearch");
-    const heroReadingList = document.getElementById("heroReadingList");
-
-    const topReadingToggle = document.getElementById("topReadingToggle");
-    const topReadingPanel = document.getElementById("topReadingPanel");
-    const topReadingSearch = document.getElementById("topReadingSearch");
-    const topReadingList = document.getElementById("topReadingList");
 
     let activeQuickFilter = "all";
 
@@ -2295,30 +2261,53 @@
       continueReadingCard.style.display = "none";
     }
 
-    function renderPickerList(targetElement, filteredSurahs, mode) {
+    function renderListenSurahList(filteredSurahs = surahs) {
       if (!filteredSurahs.length) {
-        targetElement.innerHTML = `<div class="panel-empty">No surahs matched your search.</div>`;
+        listenSurahList.innerHTML = `<div class="listen-empty">No surahs matched your search.</div>`;
         return;
       }
 
-      targetElement.innerHTML = filteredSurahs.map((surah) => {
-        const href = mode === "listen" ? getListeningLink(surah.number) : getSurahLink(surah.number);
+      listenSurahList.innerHTML = filteredSurahs.map((surah) => {
         return `
-          <a class="surah-picker-link" href="${href}">
-            <span class="surah-picker-number">${surah.number}</span>
-            <span class="surah-picker-name">${surah.english}</span>
+          <a class="listen-surah-link" href="${getListeningLink(surah.number)}">
+            <span class="listen-surah-number">${surah.number}</span>
+            <span class="listen-surah-name">${surah.english}</span>
           </a>
         `;
       }).join("");
     }
 
-    function createPicker(config) {
-      const { toggle, panel, search, list, mode } = config;
+    function openListeningPanel() {
+      listenSurahPanel.hidden = false;
+      startListeningToggle.setAttribute("aria-expanded", "true");
+      renderListenSurahList();
+      requestAnimationFrame(() => listenSurahSearch.focus());
+    }
 
-      function renderFilteredList() {
-        const query = normaliseText(search.value);
+    function closeListeningPanelFn() {
+      listenSurahPanel.hidden = true;
+      startListeningToggle.setAttribute("aria-expanded", "false");
+      listenSurahSearch.value = "";
+      renderListenSurahList();
+    }
+
+    function bindListeningPanel() {
+      renderListenSurahList();
+
+      startListeningToggle.addEventListener("click", () => {
+        if (listenSurahPanel.hidden) {
+          openListeningPanel();
+        } else {
+          closeListeningPanelFn();
+        }
+      });
+
+      closeListeningPanel.addEventListener("click", closeListeningPanelFn);
+
+      listenSurahSearch.addEventListener("input", () => {
+        const query = normaliseText(listenSurahSearch.value);
         if (!query) {
-          renderPickerList(list, surahs, mode);
+          renderListenSurahList();
           return;
         }
 
@@ -2326,111 +2315,43 @@
           return (
             surah.number.toString().includes(query) ||
             normaliseText(surah.english).includes(query) ||
-            surah.arabic.includes(search.value.trim())
+            surah.arabic.includes(listenSurahSearch.value.trim())
           );
         });
 
-        renderPickerList(list, filtered, mode);
-      }
-
-      function openPanel() {
-        closeAllPanels(panel);
-        panel.hidden = false;
-        toggle.setAttribute("aria-expanded", "true");
-        renderPickerList(list, surahs, mode);
-        requestAnimationFrame(() => search.focus());
-      }
-
-      function closePanel() {
-        panel.hidden = true;
-        toggle.setAttribute("aria-expanded", "false");
-        search.value = "";
-        renderPickerList(list, surahs, mode);
-      }
-
-      toggle.addEventListener("click", () => {
-        if (panel.hidden) {
-          openPanel();
-        } else {
-          closePanel();
-        }
+        renderListenSurahList(filtered);
       });
-
-      search.addEventListener("input", renderFilteredList);
-
-      panel.addEventListener("click", (event) => {
-        if (event.target.matches("a")) {
-          closePanel();
-        }
-      });
-
-      return { panel, toggle, closePanel };
-    }
-
-    const panels = [];
-
-    function closeAllPanels(exceptPanel = null) {
-      panels.forEach((item) => {
-        if (item.panel !== exceptPanel) {
-          item.closePanel();
-        }
-      });
-    }
-
-    function bindPickerSystem() {
-      const heroReader = createPicker({
-        toggle: heroReadingToggle,
-        panel: heroReadingPanel,
-        search: heroReadingSearch,
-        list: heroReadingList,
-        mode: "read"
-      });
-
-      const topReader = createPicker({
-        toggle: topReadingToggle,
-        panel: topReadingPanel,
-        search: topReadingSearch,
-        list: topReadingList,
-        mode: "read"
-      });
-
-      const listener = createPicker({
-        toggle: startListeningToggle,
-        panel: listenSurahPanel,
-        search: listenSurahSearch,
-        list: listenSurahList,
-        mode: "listen"
-      });
-
-      panels.push(heroReader, topReader, listener);
-
-      document.querySelectorAll("[data-panel-close='heroReading']").forEach((button) => {
-        button.addEventListener("click", heroReader.closePanel);
-      });
-
-      document.querySelectorAll("[data-panel-close='topReading']").forEach((button) => {
-        button.addEventListener("click", topReader.closePanel);
-      });
-
-      closeListeningPanel.addEventListener("click", listener.closePanel);
 
       document.addEventListener("click", (event) => {
-        const clickedInsideAnyPanel = panels.some((item) => item.panel.contains(event.target));
-        const clickedAnyToggle = panels.some((item) => item.toggle.contains(event.target));
+        const withinPanel = listenSurahPanel.contains(event.target);
+        const withinToggle = startListeningToggle.contains(event.target);
 
-        if (!clickedInsideAnyPanel && !clickedAnyToggle) {
-          closeAllPanels();
+        if (!listenSurahPanel.hidden && !withinPanel && !withinToggle) {
+          closeListeningPanelFn();
         }
       });
 
       document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          closeAllPanels();
+        if (event.key === "Escape" && !listenSurahPanel.hidden) {
+          closeListeningPanelFn();
         }
       });
     }
 
+    function clearSearchAndFilters() {
+      searchInput.value = "";
+      surahFilter.value = "all";
+      juzFilter.value = "all";
+      activeQuickFilter = "all";
+      filterPills.forEach((item) => item.classList.remove("active"));
+      document.querySelector('.pill[data-filter="all"]').classList.add("active");
+      populateVerseFilter("all");
+      renderSurahs();
+      searchInput.focus();
+    }
+
     clearReadingButton.addEventListener("click", clearContinueReading);
+    clearSearchButton.addEventListener("click", clearSearchAndFilters);
 
     searchInput.addEventListener("input", renderSurahs);
 
@@ -2461,7 +2382,7 @@
     bindQuickFilters();
     bindThemeToggle();
     bindContactFormLogic();
-    bindPickerSystem();
+    bindListeningPanel();
     renderContinueReading();
     renderSurahs();
     renderJuz();
