@@ -1415,6 +1415,11 @@
       "the path of those You have favoured, not of those who have earned anger, nor of those who went astray."
     ];
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const shouldAutoplay = urlParams.get("autoplay") === "1";
+    const autoplayReciter = urlParams.get("reciter");
+    const autoplayView = urlParams.get("view");
+
     const versesContainer = document.getElementById("versesContainer");
     const loadingState = document.getElementById("loadingState");
     const errorState = document.getElementById("errorState");
@@ -1512,7 +1517,7 @@
     }
 
     function toArabicDigits(num) {
-      return String(num).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
+      return String(num).replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
     }
 
     function normaliseAudioUrl(url) {
@@ -2494,6 +2499,31 @@
       gentleScrollToElement(document.getElementById("content"), { center: false, duration: 560 });
     }
 
+    async function applyAutoplayFromUrl() {
+      if (!shouldAutoplay) return;
+
+      if (autoplayReciter && reciters[autoplayReciter]) {
+        reciterSelect.value = autoplayReciter;
+        audioMeta.textContent = `Selected reciter: ${reciters[autoplayReciter].name}`;
+      }
+
+      if (autoplayView === "synced") {
+        applyAudioView("synced", true);
+      } else {
+        applyAudioView("standard", false);
+      }
+
+      await loadSelectedAudio(false);
+
+      setTimeout(() => {
+        if (currentAudioView === "synced") {
+          beginSelectedRecitationFromVerse(1, true, false);
+        } else {
+          surahAudioPlayer.play().catch(() => {});
+        }
+      }, 500);
+    }
+
     tabButtons.forEach((button) => {
       button.addEventListener("click", () => {
         setActiveTab(button.dataset.tab);
@@ -2671,7 +2701,12 @@
 
         observeReadingProgress();
         handleInitialVerseJump();
-        await loadSelectedAudio(false);
+
+        if (shouldAutoplay) {
+          await applyAutoplayFromUrl();
+        } else {
+          await loadSelectedAudio(false);
+        }
       } catch (error) {
         console.error(error);
         loadingState.style.display = "none";
